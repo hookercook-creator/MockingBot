@@ -83,7 +83,7 @@ export default function Mockingbot() {
       });
       const data = await response.json();
       if (!response.ok) {
-        const msg = data?.error?.message || data?.error || "Something went wrong talking to the server.";
+        const msg = typeof data?.error === "string" ? data.error : "Something went wrong talking to the server.";
         setMessages([...newMessages, { role: "assistant", content: `⚠️ ${msg}` }]);
         return;
       }

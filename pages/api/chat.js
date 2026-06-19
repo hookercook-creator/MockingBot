@@ -96,9 +96,10 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    if (!response.ok) {
+   if (!response.ok) {
       console.error("Anthropic API error:", data);
-      return res.status(response.status).json({ error: data });
+      const message = data?.error?.message || "Anthropic API returned an error.";
+      return res.status(response.status).json({ error: message });
     }
 
     return res.status(200).json(data);
